@@ -351,12 +351,12 @@ nav {
 
 .login {
   align-items: center;
+  transition: 0.3s;
 }
 
-.login:hover,
-.search:hover,
-.menu:hover {
-  /* opacity: 0.5; */
+.login:hover {
+  filter: brightness(0) saturate(100%) invert(63%) sepia(0%) saturate(12%)
+    hue-rotate(169deg) brightness(96%) contrast(88%);
 }
 
 .login-info {
@@ -432,6 +432,7 @@ nav {
 
 .search {
   position: relative;
+  transition: 0.3s;
 }
 
 .search-container {
@@ -465,4 +466,89 @@ nav {
 .search-container img {
   width: 40%;
   height: 100%;
+}
+
+.menu {
+  transition: 0.3s;
+}
+
+.menu .displayed-menu {
+  position: fixed;
+  top: 0;
+  right: -50%;
+  width: 605px;
+  height: 100vh;
+  background-color: var(--main-color);
+  cursor: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 0.8s ease-in-out;
+}
+
+.menu-description {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 20px;
+  padding: 30px;
+  line-height: 1.8;
+}
+
+.menu-info {
+  padding: 30px 50px;
+}
+
+.menu-info h2 {
+  font-size: 14px;
+}
+
+.menu-info h2,
+.menu-close-btn span {
+  color: white;
+}
+
+.menu-info p {
+  font-size: 20px;
+}
+
+.follow-us p {
+  font-size: 16px;
+}
+
+.menu-info p,
+.follow-us p {
+  color: var(--text-color);
+}
+
+.menu-close-btn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close-btn {
+  font-size: 20px;
+}
+
+.follow-us {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 50px;
+}
+
+.social-links {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.social-links i {
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.social-links i:hover {
+  color: #929292 !important;
 }

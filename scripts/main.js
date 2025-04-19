@@ -12,11 +12,14 @@
 //     console.log(data);
 // })
 
-let cart = [];
+let cart = [""];
 let cartDiv = document.querySelector(".cart");
 let loginDiv = document.querySelector(".login");
 let searchDiv = document.querySelector(".search");
+let menuDiv = document.querySelector(".menu");
+let displayedMenu = document.querySelector(".displayed-menu");
 
+// display cart
 if (cart.length === 0) {
   cartDiv.innerHTML = "";
   cartDiv.innerHTML += `
@@ -71,6 +74,8 @@ if (cart.length === 0) {
     `;
 }
 
+// display login info
+
 loginDiv.addEventListener("click", (_) => {
   document.body.insertAdjacentHTML(
     "beforeend",
@@ -99,10 +104,11 @@ loginDiv.addEventListener("click", (_) => {
   );
 });
 
-let display = true;
-searchDiv.addEventListener("click", (e) => {
-  const container = document.querySelector(".search-container");
+// display or close search
 
+let display = true;
+const container = document.querySelector(".search-container");
+searchDiv.addEventListener("click", (e) => {
   if (container.contains(e.target) && e.target !== searchDiv) return;
 
   if (display) {
@@ -115,10 +121,18 @@ searchDiv.addEventListener("click", (e) => {
 });
 
 document.addEventListener("click", (e) => {
+  // close search if clicked anywhere except the search input
+  if (!container.contains(e.target) && !searchDiv.contains(e.target)) {
+    container.style = "visibility: hidden;";
+    display = true;
+  }
+
+  // close login
   if (e.target.classList.value === "login-info") {
     e.target.remove();
   }
 
+  // display login
   if (e.target.classList.value === "login-btn") {
     document.querySelector(".login-content").remove();
     document.querySelector(".login-info").insertAdjacentHTML(
@@ -145,6 +159,8 @@ document.addEventListener("click", (e) => {
               `
     );
   }
+
+  // display register
 
   if (e.target.classList.value === "register-btn") {
     document.querySelector(".login-content").remove();
@@ -173,5 +189,18 @@ document.addEventListener("click", (e) => {
                 </div>
               `
     );
+  }
+
+  // display menu
+  if (menuDiv.contains(e.target)) {
+    displayedMenu.style = "right: 0%";
+  }
+
+  // close menu
+  if (
+    e.target.classList[0] === "close-btn" ||
+    (!displayedMenu.contains(e.target) && !menuDiv.contains(e.target))
+  ) {
+    displayedMenu.style = "right: -50%";
   }
 });
