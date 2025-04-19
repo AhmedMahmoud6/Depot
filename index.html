@@ -5,9 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Depot</title>
     <link rel="stylesheet" href="styles/nav.css" />
+    <link rel="stylesheet" href="styles/swiper.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
   </head>
   <body>
@@ -381,7 +386,7 @@
           </div>
 
           <div class="search hovered">
-            <img src="images/search.svg" alt="search icon" />
+            <i class="fa-solid fa-magnifying-glass" style="color: #000000"></i>
             <div class="search-container">
               <input type="text" placeholder="Enter Keyword..." />
               <div class="search-img">
@@ -391,7 +396,7 @@
           </div>
 
           <div class="menu hovered">
-            <img src="images/menu.svg" alt="menu icon" />
+            <i class="fa-solid fa-bars" style="color: #000000"></i>
             <div class="displayed-menu">
               <div class="menu-info">
                 <div class="menu-close-btn">
@@ -422,6 +427,56 @@
       </div>
     </nav>
 
+    <div class="swiper">
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper">
+        <!-- Slides -->
+        <div class="swiper-slide">
+          <div class="slide-text-container">
+            <h1>THINK DIFFERENT.</h1>
+            <p>
+              Depot is a unique & captivating theme designed specifically for
+              all types of shops and online stores.
+            </p>
+          </div>
+          <div class="slide-image-container">
+            <img src="images/h1-slide1-img.png" alt="" />
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="slide-text-container">
+            <h1>PREMIUM COMFORT.</h1>
+            <p>
+              One-click import feature lets you import the complete Depot demo
+              content with a single mouse click.
+            </p>
+          </div>
+          <div class="slide-image-container">
+            <img src="images/h1-slide2-img1.png" alt="" />
+            <img src="images/h1-slide2-img2.png" alt="" />
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="slide-text-container">
+            <h1>CONTEMPORARY DESIGN.</h1>
+            <p>
+              A large set of beautiful & fully flexible homepage layouts lets
+              you create your website quickly & easily.
+            </p>
+          </div>
+          <div class="slide-image-container">
+            <img src="images/h1-slide3-img.jpg" alt="" />
+          </div>
+        </div>
+      </div>
+      <!-- If we need pagination -->
+      <div class="swiper-pagination"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="scripts/functions.js"></script>
     <script src="scripts/main.js"></script>
   </body>
 </html>

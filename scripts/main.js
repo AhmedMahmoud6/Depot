@@ -19,6 +19,35 @@ let searchDiv = document.querySelector(".search");
 let menuDiv = document.querySelector(".menu");
 let displayedMenu = document.querySelector(".displayed-menu");
 
+const swiper = new Swiper(".swiper", {
+  direction: "horizontal",
+  loop: true,
+  allowTouchMove: false,
+  autoplay: {
+    delay: 3000,
+  },
+  speed: 800,
+
+  effect: "fade",
+  fadeEffect: {
+    crossFade: true,
+  },
+
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+    renderBullet: function (index, className) {
+      const number = (index + 1).toString().padStart(2, "0");
+      return `
+        <div class="${className}">
+          <span class="bullet-number">${number}</span>
+          <span class="bullet-line"></span>
+        </div>
+      `;
+    },
+  },
+});
+
 // display cart
 if (cart.length === 0) {
   cartDiv.innerHTML = "";
@@ -77,31 +106,7 @@ if (cart.length === 0) {
 // display login info
 
 loginDiv.addEventListener("click", (_) => {
-  document.body.insertAdjacentHTML(
-    "beforeend",
-    `
-    <div class="login-info">
-      <div class="login-content">
-        <div class="btns">
-          <div class="login-btn">LOGIN</div>
-          <div class="register-btn">REGISTER</div>
-        </div>
-        <div class="fields">
-          <input type="text" placeholder="User Name" />
-          <input type="password" placeholder="Password" />
-          <div class="remember-me">
-            <input type="checkbox" id="remember" />
-            <label for="remember">Remember me</label>
-          </div>
-
-          <p>Lost your password?</p>
-
-          <button>LOGIN</button>
-        </div>
-      </div>
-    </div>
-    `
-  );
+  displayLogin();
 });
 
 // display or close search
@@ -134,61 +139,13 @@ document.addEventListener("click", (e) => {
 
   // display login
   if (e.target.classList.value === "login-btn") {
-    document.querySelector(".login-content").remove();
-    document.querySelector(".login-info").insertAdjacentHTML(
-      "beforeend",
-      `
-                <div class="login-content">
-                  <div class="btns">
-                    <div class="login-btn">LOGIN</div>
-                    <div class="register-btn">REGISTER</div>
-                  </div>
-                  <div class="fields">
-                    <input type="text" placeholder="User Name" />
-                    <input type="password" placeholder="Password" />
-                    <div class="remember-me">
-                      <input type="checkbox" id="remember" />
-                      <label for="remember">Remember me</label>
-                    </div>
-          
-                    <p>Lost your password?</p>
-          
-                    <button>LOGIN</button>
-                  </div>
-                </div>
-              `
-    );
+    loginClicked();
   }
 
   // display register
 
   if (e.target.classList.value === "register-btn") {
-    document.querySelector(".login-content").remove();
-    document.querySelector(".login-info").insertAdjacentHTML(
-      "beforeend",
-      `
-                <div class="login-content">
-                  <div class="btns">
-                    <div class="login-btn">LOGIN</div>
-                    <div class="register-btn">REGISTER</div>
-                  </div>
-           <div class="fields">
-                <input type="text" placeholder="User Name" />
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="Password" />
-                <input type="password" placeholder="Repeat Password" />
-      
-                <p>
-                  Your personal data will be used to support your experience
-                  throughout this website, to manage access to your account, and for
-                  other purposes described in our privacy policy.
-                </p>
-      
-                <button>Register</button>
-              </div>
-                </div>
-              `
-    );
+    registerClicked();
   }
 
   // display menu
