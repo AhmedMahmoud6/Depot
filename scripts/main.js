@@ -1,23 +1,14 @@
-// async function getData() {
-//     try {
-//         let myResponse = await fetch("https://fakestoreapi.com/products");
-//         let myData = await myResponse.json();
-//         return myData;
-//     } catch (error) {
-//         console.log(Error(error));
-//     }
-// }
+let cart = [];
+let apiProducts = [];
+let htmlProducts = document.querySelectorAll(".product");
 
-// getData().then(data => {
-//     console.log(data);
-// })
-
-let cart = [""];
 let cartDiv = document.querySelector(".cart");
 let loginDiv = document.querySelector(".login");
 let searchDiv = document.querySelector(".search");
 let menuDiv = document.querySelector(".menu");
 let displayedMenu = document.querySelector(".displayed-menu");
+
+fillProducts(apiProducts, htmlProducts);
 
 const swiper = new Swiper(".swiper", {
   direction: "horizontal",
@@ -50,57 +41,7 @@ const swiper = new Swiper(".swiper", {
 
 // display cart
 if (cart.length === 0) {
-  cartDiv.innerHTML = "";
-  cartDiv.innerHTML += `
-    <p>CART</p>
-    <span>($0)</span>
-    <div class="products">
-    <p>No products in the cart</p>
-    </div>
-    `;
-} else {
-  cartDiv.innerHTML = "";
-  cartDiv.innerHTML += `
-                <p>CART</p>
-            <span id="price">($0)</span>
-            <div class="products">
-              <div class="item">
-                <div class="item-img">
-                  <img
-                    src="images/h1-product-8-600x728.jpg"
-                    alt="product image"
-                  />
-                </div>
-                <div class="info">
-                  <p>Basket With Handles</p>
-                  <span>1 X $160</span>
-                </div>
-                <span class="delete-btn">x</span>
-              </div>
-
-              <div class="item">
-                <div class="item-img">
-                  <img
-                    src="images/h1-product-8-600x728.jpg"
-                    alt="product image"
-                  />
-                </div>
-                <div class="info">
-                  <p>Basket With Handles</p>
-                  <span>1 X $160</span>
-                </div>
-                <span class="delete-btn">x</span>
-              </div>
-
-              <div class="total">
-                <span>TOTAL:</span>
-                <span>270$</span>
-              </div>
-
-              <div class="view-cart"><a href="#">VIEW CART</a></div>
-              <div class="checkout"><a href="#">CHECKOUT</a></div>
-            </div>
-    `;
+  resetCart();
 }
 
 // display login info
@@ -160,4 +101,74 @@ document.addEventListener("click", (e) => {
   ) {
     displayedMenu.style = "right: -50%";
   }
+
+  // add product to cart
+  try {
+    if (
+      e.target.parentElement.classList[0] === "add-cart" &&
+      e.target.parentElement.classList.length === 1
+    ) {
+      e.target.parentElement.classList.add("added"); // to prevent adding the same item more than once
+
+      let productId = e.target.closest(".product").id; // getting the product that will be added to the cart
+      for (let i of apiProducts) {
+        if (productId.slice(-1) == i.id) {
+          cart.push(i);
+          break;
+        }
+      }
+
+      updateCart(cart, cartDiv);
+    }
+    if (e.target.parentElement.classList[1] === "added") {
+      console.log(e.target);
+      e.target.textContent = "PRODUCT ADDED SUCCESSFULLY";
+      e.target.style = "color: green !important; ";
+
+      setTimeout(() => {
+        e.target.textContent = "ADD PRODUCT"; // after 2 sec return it to default message
+        e.target.style = "color: var(--text-color); ";
+      }, 2000);
+    }
+  } catch (error) {}
+
+  // deleting item
+
+  if (e.target.classList[0] === "delete-btn") {
+    let itemParent = e.target.closest(".item");
+    let itemId = itemParent.id;
+    itemParent.remove();
+
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].id == itemId) {
+        cart.splice(i, 1); // removes the item element from the cart array
+        break;
+      }
+    }
+
+    document
+      .querySelector(`#product${itemId} .add-cart`)
+      .classList.remove("added"); // removes added class to make it appendable to the cart
+  }
+
+  // display cart
+  if (cart.length === 0) {
+    resetCart();
+  } else {
+    updateCart(cart, cartDiv);
+  }
+
+  // show quick look for every product
+  if (e.target.classList[0] === "quick") {
+    let elementId = e.target.parentElement.id.slice(-1);
+
+    quickLook(apiProducts, elementId);
+  }
+
+  // close quick look
+  try {
+    if (document.querySelector(".exit-btn").contains(e.target)) {
+      e.target.closest(".login-info").remove();
+    }
+  } catch (error) {}
 });

@@ -291,7 +291,7 @@ nav {
   height: 65px;
   display: flex;
   gap: 10px;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .item-img img {
@@ -299,16 +299,17 @@ nav {
   height: 52px;
 }
 
-.info p {
-  color: white;
-}
-
 .delete-btn {
   font-size: 14px;
 }
 
 .info p {
+  color: white;
   margin-bottom: 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 118px;
 }
 
 .delete-btn:hover,
