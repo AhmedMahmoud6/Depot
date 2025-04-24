@@ -1,0 +1,61 @@
+footer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+footer .inner {
+  display: flex;
+  width: 100%;
+  padding: 100px 270px;
+  border-top: 1px solid #f5f5f5;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+footer .details {
+  padding: 0;
+}
+
+footer .details a {
+  color: var(--black-color);
+  text-decoration: none;
+  font-size: 13px;
+}
+
+footer .details > a {
+  font-size: 16px;
+}
+
+footer .details ul li:hover::before {
+  background-image: url(../images/right-long-solid.svg);
+  height: 14px;
+}
+
+footer .inner ul li:hover a {
+  color: var(--text-color);
+}
+
+footer .copyrights {
+  padding: 0px 270px;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+}
+
+footer .follow {
+  display: flex;
+  gap: 20px;
+}
+
+footer .follow p {
+  color: black;
+}
+
+footer .follow i {
+  font-size: 16px;
+  cursor: pointer;
+}
+
+footer .follow i:hover {
+  color: #929292 !important;
+}

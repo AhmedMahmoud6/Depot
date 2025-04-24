@@ -8,6 +8,7 @@
 
 :root {
   --main-color: #111111;
+  --black-color: #080808;
   --text-color: #9a9a9a;
 }
 
@@ -15,7 +16,6 @@ body {
   font-family: "Arimo", sans-serif;
   font-size: 12px;
   letter-spacing: 1px;
-  height: 10000px;
 }
 
 nav {
