@@ -8,7 +8,9 @@ let searchDiv = document.querySelector(".search");
 let menuDiv = document.querySelector(".menu");
 let displayedMenu = document.querySelector(".displayed-menu");
 
-fillProducts(apiProducts, htmlProducts);
+fillProducts(apiProducts);
+
+// createProducts(0, apiProducts);
 
 const swiper = new Swiper(".swiper", {
   direction: "horizontal",
@@ -94,7 +96,7 @@ document.addEventListener("click", (e) => {
     displayedMenu.style = "right: 0%";
   }
 
-  // close menu
+  // close menu btn
   if (
     e.target.classList[0] === "close-btn" ||
     (!displayedMenu.contains(e.target) && !menuDiv.contains(e.target))
@@ -112,7 +114,7 @@ document.addEventListener("click", (e) => {
 
       let productId = e.target.closest(".product").id; // getting the product that will be added to the cart
       for (let i of apiProducts) {
-        if (productId.slice(-1) == i.id) {
+        if (parseInt(productId) == i.id) {
           cart.push(i);
           break;
         }
@@ -121,7 +123,6 @@ document.addEventListener("click", (e) => {
       updateCart(cart, cartDiv);
     }
     if (e.target.parentElement.classList[1] === "added") {
-      console.log(e.target);
       e.target.textContent = "PRODUCT ADDED SUCCESSFULLY";
       e.target.style = "color: green !important; ";
 
@@ -160,7 +161,7 @@ document.addEventListener("click", (e) => {
 
   // show quick look for every product
   if (e.target.classList[0] === "quick") {
-    let elementId = e.target.parentElement.id.slice(-1);
+    let elementId = parseInt(e.target.parentElement.id);
 
     quickLook(apiProducts, elementId);
   }
@@ -171,4 +172,31 @@ document.addEventListener("click", (e) => {
       e.target.closest(".login-info").remove();
     }
   } catch (error) {}
+
+  // pagination
+  if (e.target.id === "next") {
+    nextPage();
+    fillProducts(apiProducts);
+  }
+
+  if (e.target.id === "back") {
+    previousPage();
+    fillProducts(apiProducts);
+  }
+
+  // filtering products by categories
+  if (
+    document.querySelector(".items-type").contains(e.target) &&
+    e.target.localName === "li"
+  ) {
+    let categoryName = e.target.textContent.toLowerCase();
+
+    if (categoryName != "all") {
+      filterCategories(apiProducts, categoryName);
+      document.querySelector(".pagination").style = "display: none;";
+    } else {
+      filterCategories(apiProducts, "all");
+      document.querySelector(".pagination").style = "display: flex;";
+    }
+  }
 });

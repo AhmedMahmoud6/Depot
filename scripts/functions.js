@@ -1,3 +1,6 @@
+let page = 1;
+let productsPerPage = 8;
+
 function displayLogin() {
   document.body.insertAdjacentHTML(
     "beforeend",
@@ -153,15 +156,15 @@ function updateCart(cart, cartDiv) {
 }
 
 function quickLook(apiProducts, elementId) {
-  for (let i = 0; i < apiProducts.length; i++) {
-    if (apiProducts[i].id == elementId) {
+  for (let i of apiProducts) {
+    if (i.id == elementId) {
       document.body.insertAdjacentHTML(
         "beforeend",
         `
       <div class="login-info">
         <div class="product-content">
           <div class="product-img">
-            <img src="${apiProducts[i].image}" alt="product img" />
+            <img src="${i.image}" alt="product img" />
           </div>
   
           <div class="product-details">
@@ -169,8 +172,8 @@ function quickLook(apiProducts, elementId) {
               <i class="fa-solid fa-xmark" style="color: #000000"></i>
             </div>
             <div class="product-title">
-              <h1>${apiProducts[i].title}</h1>
-              <p>$${apiProducts[i].price}</p>
+              <h1>${i.title}</h1>
+              <p>$${i.price}</p>
             </div>
   
             <div class="product-desc">
@@ -182,7 +185,7 @@ function quickLook(apiProducts, elementId) {
                 <i class="fa-solid fa-star" style="color: #ffd43b"></i>
               </div>
               <p>
-              ${apiProducts[i].description}
+              ${i.description}
               </p>
             </div>
   
@@ -207,9 +210,35 @@ function quickLook(apiProducts, elementId) {
   }
 }
 
+function nextPage() {
+  if (page < 3) {
+    page++;
+    document.querySelector(".pagination #next").style = "display: block;";
+  }
+  if (page === 3) {
+    document.querySelector(".pagination #next").style = "display: none;";
+  }
+  if (page > 1) {
+    document.querySelector(".pagination #back").style = "display: block;";
+  }
+}
+
+function previousPage() {
+  if (page > 1) {
+    page--;
+    document.querySelector(".pagination #back").style = "display: block;";
+  }
+  if (page === 1) {
+    document.querySelector(".pagination #back").style = "display: none;";
+  }
+  if (page < 3) {
+    document.querySelector(".pagination #next").style = "display: block;";
+  }
+}
+
 async function getData() {
   try {
-    let myResponse = await fetch("https://fakestoreapi.com/products");
+    let myResponse = await fetch("https://fakestoreapi.com/products/");
     let myData = await myResponse.json();
     return myData;
   } catch (error) {
@@ -217,20 +246,55 @@ async function getData() {
   }
 }
 
-async function fillProducts(apiProducts, htmlProducts) {
+function createProducts(apiProducts) {
+  document.querySelector(".items").innerHTML = "";
+  for (let i of apiProducts) {
+    document.querySelector(".items").insertAdjacentHTML(
+      "beforeend",
+      `
+    <div class="product" id="${i.id}">
+    <img src="${i.image}" alt="product image" />
+    <div class="quick">QUICK LOOK</div>
+    <div class="product-info">
+      <p>${i.title}</p>
+      <div class="add-cart">
+        <p href="">ADD TO CART</p>
+        <span>$${i.price}</span>
+      </div>
+    </div>
+  </div>
+`
+    );
+  }
+}
+
+async function fillProducts(apiProducts) {
   const data = await getData();
   if (!data) return;
 
-  data.length = 14;
+  let startIndex = (page - 1) * productsPerPage;
+  let endIndex = startIndex + productsPerPage;
 
-  for (let i = 0; i < 8; i++) {
-    apiProducts.push(data[i + 1]);
+  apiProducts.length = 0; // clear old data
+  apiProducts.push(...data.slice(startIndex, endIndex)); // mutate
 
-    htmlProducts[i].setAttribute("id", `product${i + 2}`);
-    htmlProducts[i].querySelector("img").src = data[i + 1].image;
-    htmlProducts[i].querySelector("p").textContent = data[i + 1].title;
-    htmlProducts[i].querySelector("span").textContent = `$${data[i + 1].price}`;
+  createProducts(apiProducts);
+}
+
+async function filterCategories(apiProducts, selectedCategory) {
+  const data = await getData();
+  if (!data) return;
+
+  console.log(data);
+
+  if (selectedCategory != "all") {
+    apiProducts.length = 0; // clear old data
+    apiProducts.push(...data.filter((e) => e.category === selectedCategory));
+  } else {
+    apiProducts.length = 0; // clear old data
+    data.length = 8;
+    apiProducts.push(...data);
   }
 
-  return apiProducts;
+  createProducts(apiProducts);
 }

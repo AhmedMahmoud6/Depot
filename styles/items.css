@@ -179,7 +179,7 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
 .product-title h1 {
@@ -201,6 +201,8 @@
   font-size: 14px;
   line-height: 1.7;
   color: var(--text-color);
+  overflow: auto;
+  height: 150px;
 }
 
 .product-cart {
@@ -248,4 +250,31 @@
 .select-quantity i:hover {
   color: var(--main-color) !important;
   cursor: pointer;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+.pagination button {
+  width: 200px;
+  height: 36px;
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.pagination button:first-child {
+  background-color: #f3f3f3;
+  border: 1px solid var(--text-color);
+  color: black;
+  display: none;
+}
+
+.pagination button:hover {
+  opacity: 0.7;
 }
