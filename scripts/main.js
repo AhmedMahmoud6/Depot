@@ -1,4 +1,4 @@
-let cart = [];
+let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
 let apiProducts = [];
 let htmlProducts = document.querySelectorAll(".product");
 
@@ -7,8 +7,6 @@ let loginDiv = document.querySelector(".login");
 let searchDiv = document.querySelector(".search");
 let menuDiv = document.querySelector(".menu");
 let displayedMenu = document.querySelector(".displayed-menu");
-
-fillProducts(apiProducts); // displaying the products from the api
 
 const swiper = new Swiper(".swiper", {
   direction: "horizontal",
@@ -39,9 +37,13 @@ const swiper = new Swiper(".swiper", {
   },
 });
 
+fillProducts(apiProducts); // displaying the products from the api
+
 // display cart
 if (cart.length === 0) {
   resetCart();
+} else {
+  updateCart(cart, cartDiv);
 }
 
 // display login info
@@ -129,6 +131,7 @@ document.addEventListener("click", (e) => {
       }
 
       updateCart(cart, cartDiv);
+      sessionStorage.setItem("cart", JSON.stringify(cart));
     }
   } catch (error) {}
 
@@ -145,13 +148,14 @@ document.addEventListener("click", (e) => {
         break;
       }
     }
-  }
 
-  // display cart
-  if (cart.length === 0) {
-    resetCart();
-  } else {
-    updateCart(cart, cartDiv);
+    sessionStorage.setItem("cart", JSON.stringify(cart));
+    // display cart
+    if (cart.length === 0) {
+      resetCart();
+    } else {
+      updateCart(cart, cartDiv);
+    }
   }
 
   // show quick look for every product
