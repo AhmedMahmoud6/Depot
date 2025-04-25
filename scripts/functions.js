@@ -110,9 +110,9 @@ function updateCart(cart, cartDiv) {
     cartTotal += e.price;
   });
 
-  cartTotal = cartTotal.toFixed(2);
+  cartTotal = cartTotal.toFixed(2); // limiting to 2 decimals
 
-  // displaying the new cart design that contains products
+  // displaying the new cart design that will contain products
   cartDiv.innerHTML = "";
   cartDiv.innerHTML += `
                   <p>CART</p>
@@ -210,39 +210,25 @@ function quickLook(apiProducts, elementId) {
   }
 }
 
+function updatePagination() {
+  const backBtn = document.querySelector(".pagination #back");
+  const nextBtn = document.querySelector(".pagination #next");
+
+  backBtn.style.display = page > 1 ? "block" : "none";
+  nextBtn.style.display = page < 3 ? "block" : "none";
+}
+
 function nextPage() {
   if (page < 3) {
     page++;
-    document.querySelector(".pagination #next").style = "display: block;";
-  }
-  if (page === 3) {
-    document.querySelector(".pagination #next").style = "display: none;";
-  }
-  if (page > 1) {
-    document.querySelector(".pagination #back").style = "display: block;";
+    updatePagination();
   }
 }
 
 function previousPage() {
   if (page > 1) {
     page--;
-    document.querySelector(".pagination #back").style = "display: block;";
-  }
-  if (page === 1) {
-    document.querySelector(".pagination #back").style = "display: none;";
-  }
-  if (page < 3) {
-    document.querySelector(".pagination #next").style = "display: block;";
-  }
-}
-
-async function getData() {
-  try {
-    let myResponse = await fetch("https://fakestoreapi.com/products/");
-    let myData = await myResponse.json();
-    return myData;
-  } catch (error) {
-    console.log(Error(error));
+    updatePagination();
   }
 }
 
@@ -252,7 +238,7 @@ function createProducts(apiProducts) {
     document.querySelector(".items").insertAdjacentHTML(
       "beforeend",
       `
-    <div class="product" id="${i.id}">
+    <div class="product" id="prod${i.id}">
     <img src="${i.image}" alt="product image" />
     <div class="quick">QUICK LOOK</div>
     <div class="product-info">
@@ -268,6 +254,30 @@ function createProducts(apiProducts) {
   }
 }
 
+function productAdded(target, alreadyAdded) {
+  if (alreadyAdded) {
+    target.textContent = "ALREADY IN CART";
+    target.setAttribute("class", "already-added");
+  } else {
+    target.textContent = "ADDED TO CART";
+    target.setAttribute("class", "cart-added");
+  }
+  setTimeout(() => {
+    target.textContent = "ADD PRODUCT"; // after 2 sec return it to default message
+    target.removeAttribute("class");
+  }, 2000);
+}
+
+async function getData() {
+  try {
+    let myResponse = await fetch("https://fakestoreapi.com/products/");
+    let myData = await myResponse.json();
+    return myData;
+  } catch (error) {
+    console.log(Error(error));
+  }
+}
+
 async function fillProducts(apiProducts) {
   const data = await getData();
   if (!data) return;
@@ -276,7 +286,7 @@ async function fillProducts(apiProducts) {
   let endIndex = startIndex + productsPerPage;
 
   apiProducts.length = 0; // clear old data
-  apiProducts.push(...data.slice(startIndex, endIndex)); // mutate
+  apiProducts.push(...data.slice(startIndex, endIndex)); // mutate original array
 
   createProducts(apiProducts);
 }
@@ -285,15 +295,13 @@ async function filterCategories(apiProducts, selectedCategory) {
   const data = await getData();
   if (!data) return;
 
-  console.log(data);
-
   if (selectedCategory != "all") {
     apiProducts.length = 0; // clear old data
-    apiProducts.push(...data.filter((e) => e.category === selectedCategory));
+    apiProducts.push(...data.filter((e) => e.category === selectedCategory)); // mutate original array
   } else {
     apiProducts.length = 0; // clear old data
-    data.length = 8;
-    apiProducts.push(...data);
+    data.length = 8; // limiting the shown data up to 8 per page
+    apiProducts.push(...data); // mutate original array
   }
 
   createProducts(apiProducts);

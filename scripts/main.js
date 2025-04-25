@@ -8,9 +8,7 @@ let searchDiv = document.querySelector(".search");
 let menuDiv = document.querySelector(".menu");
 let displayedMenu = document.querySelector(".displayed-menu");
 
-fillProducts(apiProducts);
-
-// createProducts(0, apiProducts);
+fillProducts(apiProducts); // displaying the products from the api
 
 const swiper = new Swiper(".swiper", {
   direction: "horizontal",
@@ -110,26 +108,27 @@ document.addEventListener("click", (e) => {
       e.target.parentElement.classList[0] === "add-cart" &&
       e.target.parentElement.classList.length === 1
     ) {
-      e.target.parentElement.classList.add("added"); // to prevent adding the same item more than once
+      let productId = e.target.closest(".product").id.match(/\d+/)[0]; // getting the product that will be added to the cart
+      let addProductDiv = e.target.parentElement.querySelector("p");
 
-      let productId = e.target.closest(".product").id; // getting the product that will be added to the cart
+      // checking if the product is repeated and if so dont append it to the cart
+      for (let i of cart) {
+        if (i.id == productId) {
+          productAdded(addProductDiv, true);
+          return;
+        }
+      }
+
+      // adding product to cart
       for (let i of apiProducts) {
-        if (parseInt(productId) == i.id) {
+        if (productId == i.id) {
           cart.push(i);
+          productAdded(addProductDiv, false);
           break;
         }
       }
 
       updateCart(cart, cartDiv);
-    }
-    if (e.target.parentElement.classList[1] === "added") {
-      e.target.textContent = "PRODUCT ADDED SUCCESSFULLY";
-      e.target.style = "color: green !important; ";
-
-      setTimeout(() => {
-        e.target.textContent = "ADD PRODUCT"; // after 2 sec return it to default message
-        e.target.style = "color: var(--text-color); ";
-      }, 2000);
     }
   } catch (error) {}
 
@@ -137,7 +136,7 @@ document.addEventListener("click", (e) => {
 
   if (e.target.classList[0] === "delete-btn") {
     let itemParent = e.target.closest(".item");
-    let itemId = itemParent.id;
+    let itemId = itemParent.id.match(/\d+/)[0];
     itemParent.remove();
 
     for (let i = 0; i < cart.length; i++) {
@@ -146,10 +145,6 @@ document.addEventListener("click", (e) => {
         break;
       }
     }
-
-    document
-      .querySelector(`#product${itemId} .add-cart`)
-      .classList.remove("added"); // removes added class to make it appendable to the cart
   }
 
   // display cart
@@ -161,7 +156,7 @@ document.addEventListener("click", (e) => {
 
   // show quick look for every product
   if (e.target.classList[0] === "quick") {
-    let elementId = parseInt(e.target.parentElement.id);
+    let elementId = e.target.parentElement.id.match(/\d+/)[0]; // using regex to filter the numbers only
 
     quickLook(apiProducts, elementId);
   }
