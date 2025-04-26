@@ -26,8 +26,12 @@
   transition: 0.2s;
 }
 
-.items-type ul li:not(:first-child) {
+.items-type ul li {
   color: #929292;
+}
+
+.items-type ul li.active {
+  color: var(--black-color);
 }
 
 .items-type ul li:hover {

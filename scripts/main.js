@@ -188,8 +188,18 @@ document.addEventListener("click", (e) => {
     document.querySelector(".items-type").contains(e.target) &&
     e.target.localName === "li"
   ) {
+    // getting category name
     let categoryName = e.target.textContent.toLowerCase();
 
+    // removing active class from all li
+    for (let i of e.target.parentElement.querySelectorAll("li")) {
+      i.removeAttribute("class");
+    }
+
+    // adding active class to the li to change its color when clicked
+    e.target.setAttribute("class", "active");
+
+    // filtering by category name
     if (categoryName != "all") {
       filterCategories(apiProducts, categoryName);
       document.querySelector(".pagination").style = "display: none;";
