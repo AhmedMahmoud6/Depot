@@ -91,7 +91,7 @@ function registerClicked() {
   document.querySelector(".login-btn").style = "background-color: #f1f1f1;";
 }
 
-function resetCart() {
+function resetCart(cartDiv) {
   cartDiv.innerHTML = "";
   cartDiv.innerHTML += `
   <p>CART</p>
@@ -126,7 +126,7 @@ function updateCart(cart, cartDiv) {
                 </div>
 
                 <div class="view-cart"><a href="#">VIEW CART</a></div>
-                <div class="checkout"><a href="#">CHECKOUT</a></div>
+                <div class="checkout"><a href="checkout.html">CHECKOUT</a></div>
               </div>
       `;
 

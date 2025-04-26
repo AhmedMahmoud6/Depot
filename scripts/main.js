@@ -1,211 +1,121 @@
-let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
-let apiProducts = [];
-let htmlProducts = document.querySelectorAll(".product");
+window.addEventListener("load", (_) => {
+  let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+  let apiProducts = [];
 
-let cartDiv = document.querySelector(".cart");
-let loginDiv = document.querySelector(".login");
-let searchDiv = document.querySelector(".search");
-let menuDiv = document.querySelector(".menu");
-let displayedMenu = document.querySelector(".displayed-menu");
+  let cartDiv = document.querySelector(".cart");
 
-const swiper = new Swiper(".swiper", {
-  direction: "horizontal",
-  loop: true,
-  allowTouchMove: false,
-  autoplay: {
-    delay: 3000,
-  },
-  speed: 800,
+  const swiper = new Swiper(".swiper", {
+    direction: "horizontal",
+    loop: true,
+    allowTouchMove: false,
+    autoplay: {
+      delay: 3000,
+    },
+    speed: 800,
 
-  effect: "fade",
-  fadeEffect: {
-    crossFade: true,
-  },
+    effect: "fade",
+    fadeEffect: {
+      crossFade: true,
+    },
 
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-    renderBullet: function (index, className) {
-      const number = (index + 1).toString().padStart(2, "0");
-      return `
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+      renderBullet: function (index, className) {
+        const number = (index + 1).toString().padStart(2, "0");
+        return `
         <div class="${className}">
           <span class="bullet-number">${number}</span>
           <span class="bullet-line"></span>
         </div>
       `;
+      },
     },
-  },
-});
+  });
 
-fillProducts(apiProducts); // displaying the products from the api
+  fillProducts(apiProducts); // displaying the products from the api
 
-// display cart
-if (cart.length === 0) {
-  resetCart();
-} else {
-  updateCart(cart, cartDiv);
-}
+  document.addEventListener("click", (e) => {
+    // add product to cart
+    try {
+      if (
+        e.target.parentElement.classList[0] === "add-cart" &&
+        e.target.parentElement.classList.length === 1
+      ) {
+        let productId = e.target.closest(".product").id.match(/\d+/)[0]; // getting the product that will be added to the cart
+        let addProductDiv = e.target.parentElement.querySelector("p");
 
-// display login info
+        // checking if the product is repeated and if so dont append it to the cart
+        for (let i of cart) {
+          if (i.id == productId) {
+            productAdded(addProductDiv, true);
+            return;
+          }
+        }
 
-loginDiv.addEventListener("click", (_) => {
-  displayLogin();
-});
+        // adding product to cart
+        for (let i of apiProducts) {
+          if (productId == i.id) {
+            cart.push(i);
+            productAdded(addProductDiv, false);
+            break;
+          }
+        }
 
-// display or close search
+        updateCart(cart, cartDiv);
+        sessionStorage.setItem("cart", JSON.stringify(cart));
+      }
+    } catch (error) {}
 
-let display = true;
-const container = document.querySelector(".search-container");
-searchDiv.addEventListener("click", (e) => {
-  if (container.contains(e.target) && e.target !== searchDiv) return;
+    // show quick look for every product
+    if (e.target.classList[0] === "quick") {
+      let elementId = e.target.parentElement.id.match(/\d+/)[0]; // using regex to filter the numbers only
 
-  if (display) {
-    container.style = "visibility: visible;";
-    display = !display;
-  } else {
-    container.style = "visibility: hidden;";
-    display = !display;
-  }
-});
+      quickLook(apiProducts, elementId);
+    }
 
-document.addEventListener("click", (e) => {
-  // close search if clicked anywhere except the search input
-  if (!container.contains(e.target) && !searchDiv.contains(e.target)) {
-    container.style = "visibility: hidden;";
-    display = true;
-  }
+    // close quick look
+    try {
+      if (document.querySelector(".exit-btn").contains(e.target)) {
+        e.target.closest(".login-info").remove();
+      }
+    } catch (error) {}
 
-  // close login
-  if (e.target.classList.value === "login-info") {
-    e.target.remove();
-  }
+    // pagination
+    if (e.target.id === "next") {
+      nextPage();
+      fillProducts(apiProducts);
+    }
 
-  // display login
-  if (e.target.classList.value === "login-btn") {
-    loginClicked();
-  }
+    if (e.target.id === "back") {
+      previousPage();
+      fillProducts(apiProducts);
+    }
 
-  // display register
-
-  if (e.target.classList.value === "register-btn") {
-    registerClicked();
-  }
-
-  // display menu
-  if (menuDiv.contains(e.target)) {
-    displayedMenu.style = "right: 0%";
-  }
-
-  // close menu btn
-  if (
-    e.target.classList[0] === "close-btn" ||
-    (!displayedMenu.contains(e.target) && !menuDiv.contains(e.target))
-  ) {
-    displayedMenu.style = "right: -50%";
-  }
-
-  // add product to cart
-  try {
+    // filtering products by categories
     if (
-      e.target.parentElement.classList[0] === "add-cart" &&
-      e.target.parentElement.classList.length === 1
+      document.querySelector(".items-type").contains(e.target) &&
+      e.target.localName === "li"
     ) {
-      let productId = e.target.closest(".product").id.match(/\d+/)[0]; // getting the product that will be added to the cart
-      let addProductDiv = e.target.parentElement.querySelector("p");
+      // getting category name
+      let categoryName = e.target.textContent.toLowerCase();
 
-      // checking if the product is repeated and if so dont append it to the cart
-      for (let i of cart) {
-        if (i.id == productId) {
-          productAdded(addProductDiv, true);
-          return;
-        }
+      // removing active class from all li
+      for (let i of e.target.parentElement.querySelectorAll("li")) {
+        i.removeAttribute("class");
       }
 
-      // adding product to cart
-      for (let i of apiProducts) {
-        if (productId == i.id) {
-          cart.push(i);
-          productAdded(addProductDiv, false);
-          break;
-        }
-      }
+      // adding active class to the li to change its color when clicked
+      e.target.setAttribute("class", "active");
 
-      updateCart(cart, cartDiv);
-      sessionStorage.setItem("cart", JSON.stringify(cart));
-    }
-  } catch (error) {}
-
-  // deleting item
-
-  if (e.target.classList[0] === "delete-btn") {
-    let itemParent = e.target.closest(".item");
-    let itemId = itemParent.id.match(/\d+/)[0];
-    itemParent.remove();
-
-    for (let i = 0; i < cart.length; i++) {
-      if (cart[i].id == itemId) {
-        cart.splice(i, 1); // removes the item element from the cart array
-        break;
+      // filtering by category name
+      if (categoryName != "all") {
+        filterCategories(apiProducts, categoryName);
+        document.querySelector(".pagination").style = "display: none;";
+      } else {
+        filterCategories(apiProducts, "all");
+        document.querySelector(".pagination").style = "display: flex;";
       }
     }
-
-    sessionStorage.setItem("cart", JSON.stringify(cart));
-    // display cart
-    if (cart.length === 0) {
-      resetCart();
-    } else {
-      updateCart(cart, cartDiv);
-    }
-  }
-
-  // show quick look for every product
-  if (e.target.classList[0] === "quick") {
-    let elementId = e.target.parentElement.id.match(/\d+/)[0]; // using regex to filter the numbers only
-
-    quickLook(apiProducts, elementId);
-  }
-
-  // close quick look
-  try {
-    if (document.querySelector(".exit-btn").contains(e.target)) {
-      e.target.closest(".login-info").remove();
-    }
-  } catch (error) {}
-
-  // pagination
-  if (e.target.id === "next") {
-    nextPage();
-    fillProducts(apiProducts);
-  }
-
-  if (e.target.id === "back") {
-    previousPage();
-    fillProducts(apiProducts);
-  }
-
-  // filtering products by categories
-  if (
-    document.querySelector(".items-type").contains(e.target) &&
-    e.target.localName === "li"
-  ) {
-    // getting category name
-    let categoryName = e.target.textContent.toLowerCase();
-
-    // removing active class from all li
-    for (let i of e.target.parentElement.querySelectorAll("li")) {
-      i.removeAttribute("class");
-    }
-
-    // adding active class to the li to change its color when clicked
-    e.target.setAttribute("class", "active");
-
-    // filtering by category name
-    if (categoryName != "all") {
-      filterCategories(apiProducts, categoryName);
-      document.querySelector(".pagination").style = "display: none;";
-    } else {
-      filterCategories(apiProducts, "all");
-      document.querySelector(".pagination").style = "display: flex;";
-    }
-  }
+  });
 });
