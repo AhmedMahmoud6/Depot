@@ -73,3 +73,33 @@
 .your-order-details > div p {
   width: calc(100% / 2);
 }
+
+.your-order > p {
+  font-size: 13px;
+  color: var(--text-color);
+  margin: 40px 0;
+}
+
+.your-order > p span {
+  color: var(--main-color);
+}
+
+.your-order button {
+  border: none;
+  margin: 0;
+}
+
+.shipping {
+  display: flex;
+  align-items: center;
+}
+
+.ship-option {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ship-radio label {
+  color: var(--text-color);
+}

@@ -268,6 +268,16 @@ function productAdded(target, alreadyAdded) {
   }, 2000);
 }
 
+function updateCheckoutUi(cart, emptyCartDiv, orderDetailsDiv) {
+  if (cart.length === 0) {
+    orderDetailsDiv.style.display = "none";
+    emptyCartDiv.style.display = "flex";
+  } else {
+    emptyCartDiv.style.display = "none";
+    orderDetailsDiv.style.display = "block";
+  }
+}
+
 async function getData() {
   try {
     let myResponse = await fetch("https://fakestoreapi.com/products/");

@@ -21,7 +21,7 @@
     </div>
 
     <div class="display-checkout">
-      <!-- <div class="empty-cart">
+      <div class="empty-cart">
         <div class="empty-msg">
           <h2>YOUR CART IS CURRENTLY EMPTY.</h2>
         </div>
@@ -32,7 +32,7 @@
           discounts.
         </p>
         <a href="index.html">RETURN TO SHOP</a>
-      </div> -->
+      </div>
 
       <div class="order-details">
         <div class="billing">
@@ -106,11 +106,38 @@
               <span>Product</span>
               <span>Subtotal</span>
             </div>
+
             <div class="order-product">
               <p>Flower Vase x 1</p>
               <p>$170</p>
             </div>
+
+            <div class="shipping">
+              <span>Shipping</span>
+              <div class="ship-option">
+                <div class="ship-radio">
+                  <input type="radio" id="free" name="radio-ship" checked />
+                  <label for="free">Free shipping</label>
+                </div>
+                <div class="ship-radio">
+                  <input type="radio" id="local" name="radio-ship" />
+                  <label for="local">Local pickup</label>
+                </div>
+                <div class="ship-radio">
+                  <input type="radio" id="flat" name="radio-ship" />
+                  <label for="flat">Flat Rate: $10</label>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <p>
+            Your personal data will be used to process your order, support your
+            experience throughout this website, and for other purposes described
+            in our <span>privacy policy</span>.
+          </p>
+
+          <button href="index.html">PLACE ORDER</button>
         </div>
       </div>
     </div>
@@ -119,6 +146,6 @@
     <script src="scripts/functions.js"></script>
     <script src="scripts/shared.js" type="module"></script>
     <script src="scripts/navbar.js" type="module"></script>
-    <script src="scripts/checkout.js"></script>
+    <script src="scripts/checkout.js" type="module"></script>
   </body>
 </html>
