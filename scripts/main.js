@@ -1,5 +1,6 @@
+import { cart, setCart } from "./shared.js";
+
 window.addEventListener("load", (_) => {
-  let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
   let apiProducts = [];
 
   let cartDiv = document.querySelector(".cart");
@@ -63,7 +64,10 @@ window.addEventListener("load", (_) => {
         }
 
         updateCart(cart, cartDiv);
+
+        // updating the cart value
         sessionStorage.setItem("cart", JSON.stringify(cart));
+        setCart(JSON.parse(sessionStorage.getItem("cart")));
       }
     } catch (error) {}
 

@@ -1,3 +1,5 @@
+import { cart, setCart } from "./shared.js";
+
 function loadNavbar() {
   const navbarHtml = `
         <nav>
@@ -417,7 +419,6 @@ function loadNavbar() {
 document.addEventListener("DOMContentLoaded", (_) => {
   loadNavbar(); // load the navbar
 
-  let cart = JSON.parse(sessionStorage.getItem("cart"));
   let cartDiv = document.querySelector(".cart");
   let loginDiv = document.querySelector(".login");
   let searchDiv = document.querySelector(".search");
@@ -503,7 +504,10 @@ document.addEventListener("DOMContentLoaded", (_) => {
         }
       }
 
+      // updating the cart value
       sessionStorage.setItem("cart", JSON.stringify(cart));
+      setCart(JSON.parse(sessionStorage.getItem("cart")));
+
       // display cart
       if (cart.length === 0) {
         resetCart(cartDiv);

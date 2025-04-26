@@ -1,1 +1,1 @@
-let emptyCartDiv = document.querySelector(".empty-cart");
+// let emptyCartDiv = document.querySelector(".empty-cart");
