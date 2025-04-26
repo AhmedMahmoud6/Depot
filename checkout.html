@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Depot</title>
     <link rel="stylesheet" href="styles/nav.css" />
-    <link rel="stylesheet" href="styles/cart-background.css" />
+    <link rel="stylesheet" href="styles/checkout.css" />
+    <link rel="stylesheet" href="styles/order-details.css" />
     <link rel="stylesheet" href="styles/checkout-footer.css" />
 
     <link
@@ -14,13 +15,13 @@
     />
   </head>
   <body>
-    <div class="cart-background">
-      <div class="cart-black"></div>
-      <h1>CART</h1>
+    <div class="checkout-background">
+      <div class="checkout-black"></div>
+      <h1>CHECKOUT</h1>
     </div>
 
     <div class="display-checkout">
-      <div class="empty-cart">
+      <!-- <div class="empty-cart">
         <div class="empty-msg">
           <h2>YOUR CART IS CURRENTLY EMPTY.</h2>
         </div>
@@ -31,6 +32,73 @@
           discounts.
         </p>
         <a href="index.html">RETURN TO SHOP</a>
+      </div> -->
+
+      <div class="order-details">
+        <div class="billing">
+          <h3>BILLING DETAILS</h3>
+          <div class="billing-info">
+            <div class="billing-name">
+              <div class="first-name">
+                <label for="first">First name ..* </label>
+                <input type="text" id="first" />
+              </div>
+
+              <div class="last-name">
+                <label for="second">Second name ..* </label>
+                <input type="text" id="second" />
+              </div>
+            </div>
+
+            <div class="company-name">
+              <label for="company">Company name (optional)</label>
+              <input type="text" id="company" />
+            </div>
+
+            <div class="country">
+              <label for="country">Country / Region ..*</label>
+              <input type="text" id="country" placeholder="Egypt" />
+            </div>
+
+            <div class="address">
+              <label for="street">Street address ..*</label>
+              <input
+                type="text"
+                id="street"
+                placeholder="House number and street name"
+              />
+              <input
+                type="text"
+                placeholder="Apartment, suite, unit, etc (optional)"
+              />
+            </div>
+
+            <div class="town">
+              <label for="town">Town / City ..*</label>
+              <input type="text" id="town" />
+            </div>
+
+            <div class="state">
+              <label for="state">State / County ..*</label>
+              <input type="text" id="state" />
+            </div>
+
+            <div class="post-code">
+              <label for="postcode">Postcode / ZIP ..*</label>
+              <input type="text" id="postcode" />
+            </div>
+
+            <div class="phone">
+              <label for="number">Phone ..*</label>
+              <input type="text" id="number" />
+            </div>
+
+            <div class="email">
+              <label for="email">Email address ..*</label>
+              <input type="text" id="email" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

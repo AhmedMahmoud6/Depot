@@ -1,0 +1,53 @@
+.order-details {
+  padding: 100px 300px;
+}
+
+.billing h3 {
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+
+.billing-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.billing-info div {
+  width: 600px;
+}
+
+.billing-info label {
+  font-size: 14px;
+}
+
+.billing-info input {
+  height: 50px;
+  padding: 20px;
+  outline: none;
+  border: 1px solid #e1e1e1;
+}
+
+.billing-info input:focus {
+  background-color: #fafafa;
+}
+
+.billing-name {
+  display: flex;
+  gap: 20px;
+}
+
+.first-name,
+.last-name,
+.company-name,
+.country,
+.address,
+.town,
+.state,
+.post-code,
+.phone,
+.email {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
