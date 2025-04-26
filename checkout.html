@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Depot</title>
     <link rel="stylesheet" href="styles/nav.css" />
-    <link rel="stylesheet" href="styles/footer.css" />
+    <link rel="stylesheet" href="styles/cart-background.css" />
+    <link rel="stylesheet" href="styles/checkout-footer.css" />
 
     <link
       rel="stylesheet"
@@ -13,6 +14,27 @@
     />
   </head>
   <body>
+    <div class="cart-background">
+      <div class="cart-black"></div>
+      <h1>CART</h1>
+    </div>
+
+    <div class="display-checkout">
+      <div class="empty-cart">
+        <div class="empty-msg">
+          <h2>YOUR CART IS CURRENTLY EMPTY.</h2>
+        </div>
+        <p>
+          Why not return to our amazing shop and start filling it with products.
+          Just click on the button below to instantly get back to the shop page.
+          Oh, and while you’re there, check out all of our mind-blowing
+          discounts.
+        </p>
+        <a href="index.html">RETURN TO SHOP</a>
+      </div>
+    </div>
+
+    <script src="scripts/footer.js"></script>
     <script src="scripts/functions.js"></script>
     <script src="scripts/navbar.js"></script>
     <script src="scripts/checkout.js"></script>
