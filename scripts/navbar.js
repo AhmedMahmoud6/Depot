@@ -514,6 +514,8 @@ document.addEventListener("DOMContentLoaded", (_) => {
       } else {
         updateCart(cart, cartDiv);
       }
+
+      window.location.reload();
     }
   });
 });

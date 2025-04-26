@@ -102,7 +102,7 @@ function resetCart(cartDiv) {
   `;
 }
 
-function updateCart(cart, cartDiv) {
+function cartTotal(cart) {
   let cartTotal = 0;
 
   // getting the total price of the products
@@ -112,17 +112,21 @@ function updateCart(cart, cartDiv) {
 
   cartTotal = cartTotal.toFixed(2); // limiting to 2 decimals
 
+  return cartTotal;
+}
+
+function updateCart(cart, cartDiv) {
   // displaying the new cart design that will contain products
   cartDiv.innerHTML = "";
   cartDiv.innerHTML += `
                   <p>CART</p>
-              <span id="price">($${cartTotal})</span>
+              <span id="price">($${cartTotal(cart)})</span>
               <div class="products">
 
 
                 <div class="total">
                   <span>TOTAL:</span>
-                  <span>${cartTotal}$</span>
+                  <span>${cartTotal(cart)}$</span>
                 </div>
 
                 <div class="view-cart"><a href="#">VIEW CART</a></div>
@@ -268,14 +272,34 @@ function productAdded(target, alreadyAdded) {
   }, 2000);
 }
 
-function updateCheckoutUi(cart, emptyCartDiv, orderDetailsDiv) {
+function checkCheckoutEmptyOrNot(cart, emptyCartDiv, orderDetailsDiv) {
   if (cart.length === 0) {
     orderDetailsDiv.style.display = "none";
     emptyCartDiv.style.display = "flex";
+    return true;
   } else {
     emptyCartDiv.style.display = "none";
     orderDetailsDiv.style.display = "block";
+    return false;
   }
+}
+
+function updateCheckoutProducts(cart, ordersDiv, orderTotalDiv) {
+  // insert checkout products
+  ordersDiv.innerHTML = "";
+  for (let i of cart) {
+    ordersDiv.insertAdjacentHTML(
+      "beforeend",
+      `
+          <div class="order-product">
+              <p>${i.title}</p>
+              <p>$${i.price}</p>
+          </div>
+          `
+    );
+  }
+
+  orderTotalDiv.textContent = `$${cartTotal(cart)}`;
 }
 
 async function getData() {

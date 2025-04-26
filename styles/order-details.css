@@ -52,26 +52,37 @@
   gap: 20px;
 }
 
-.your-order-details > div {
+.your-order-details .order-title,
+.your-order-details .orders div,
+.order-total {
   border-bottom: 1px solid #e1e1e1;
   padding: 20px 0;
   display: flex;
+  gap: 10px;
   font-size: 14px;
 }
 
-.your-order-details > div span {
+.your-order-details div span,
+.order-total span {
+  font-size: 16px;
+}
+
+.your-order-details > div span,
+.order-total span {
   color: grey;
   font-weight: bold;
   display: block;
 }
 
-.your-order-details > div p {
+.your-order-details > div p,
+.order-total p {
   color: var(--text-color);
 }
 
-.your-order-details > div span,
-.your-order-details > div p {
-  width: calc(100% / 2);
+.your-order-details > div span:first-child,
+.order-total :first-child,
+.order-product :first-child {
+  width: 70%;
 }
 
 .your-order > p {
@@ -92,6 +103,8 @@
 .shipping {
   display: flex;
   align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #e1e1e1;
 }
 
 .ship-option {
@@ -102,4 +115,33 @@
 
 .ship-radio label {
   color: var(--text-color);
+}
+
+.order-product :first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.order-placed {
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.163);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.congrats-msg {
+  width: 520px;
+  height: 300px;
+  background-color: rgb(237, 237, 237);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
