@@ -302,6 +302,13 @@ function updateCheckoutProducts(cart, ordersDiv, orderTotalDiv) {
   orderTotalDiv.textContent = `$${cartTotal(cart)}`;
 }
 
+function scrollToPosition(scrollTo) {
+  window.scrollTo({
+    top: scrollTo,
+    behavior: "smooth",
+  });
+}
+
 async function getData() {
   try {
     let myResponse = await fetch("https://fakestoreapi.com/products/");

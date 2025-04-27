@@ -87,11 +87,13 @@ window.addEventListener("load", (_) => {
 
     // pagination
     if (e.target.id === "next") {
+      scrollToPosition(700);
       nextPage();
       fillProducts(apiProducts);
     }
 
     if (e.target.id === "back") {
+      scrollToPosition(700);
       previousPage();
       fillProducts(apiProducts);
     }
