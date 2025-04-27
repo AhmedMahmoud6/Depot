@@ -48,7 +48,15 @@
 }
 
 @media (max-width: 455px) {
-  .cart span {
+  .cart > span {
     display: none;
+  }
+
+  .cart .products {
+    left: -100px;
+  }
+
+  .parent {
+    gap: 0px;
   }
 }
