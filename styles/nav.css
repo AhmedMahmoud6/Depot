@@ -487,7 +487,7 @@ nav {
 .menu .displayed-menu {
   position: fixed;
   top: 0;
-  right: -50%;
+  right: -605px;
   width: 605px;
   height: 100vh;
   background-color: var(--main-color);
@@ -496,6 +496,7 @@ nav {
   flex-direction: column;
   justify-content: space-between;
   transition: 0.5s ease-in-out;
+  /* visibility: hidden; */
 }
 
 .menu-description {

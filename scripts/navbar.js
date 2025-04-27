@@ -479,7 +479,7 @@ document.addEventListener("DOMContentLoaded", (_) => {
 
     // display menu
     if (menuDiv.contains(e.target)) {
-      displayedMenu.style = "right: 0%";
+      displayedMenu.style = "right: 0%; visibility: visible;";
     }
 
     // close menu btn
@@ -487,7 +487,7 @@ document.addEventListener("DOMContentLoaded", (_) => {
       e.target.classList[0] === "close-btn" ||
       (!displayedMenu.contains(e.target) && !menuDiv.contains(e.target))
     ) {
-      displayedMenu.style = "right: -50%";
+      displayedMenu.style = "right: -605px";
     }
 
     // deleting item
