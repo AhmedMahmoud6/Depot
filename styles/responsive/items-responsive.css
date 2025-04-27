@@ -84,4 +84,8 @@
   .quantity input {
     width: 20px;
   }
+
+  .pagination {
+    gap: 20px;
+  }
 }
