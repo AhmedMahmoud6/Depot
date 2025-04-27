@@ -2,7 +2,7 @@ import { cart, setCart } from "./shared.js";
 
 function loadNavbar() {
   const navbarHtml = `
-        <nav>
+    <nav>
       <div class="parent">
         <div class="left-side">
           <ul>
@@ -382,6 +382,7 @@ function loadNavbar() {
           </div>
 
           <div class="menu hovered">
+            <p>MENU</p>
             <i class="fa-solid fa-bars" style="color: #000000"></i>
             <div class="displayed-menu">
               <div class="menu-info">
@@ -406,6 +407,117 @@ function loadNavbar() {
                   ></i>
                   <i class="fa-brands fa-facebook-f" style="color: #ffffff"></i>
                 </div>
+              </div>
+
+              <div class="mobile-menu">
+                <ul>
+                  <li class="menu-li">
+                    <div class="li-info">
+                      HOME
+                      <i
+                        class="fa-solid fa-caret-right"
+                        style="color: #ffffff !important"
+                      ></i>
+                    </div>
+
+                    <ul class="sub-menu">
+                      <li style="color: white">Main Home</li>
+                      <li>Main Home</li>
+                      <li>Minimal Home</li>
+                      <li>Masonry Home</li>
+                      <li>Classic Home</li>
+                      <li>Passepartout Home</li>
+                      <li>Left Menu Home</li>
+                      <li>Boxed Home</li>
+                      <li>Full Screen Home</li>
+                      <li>Product Showcase</li>
+                      <li>Slider Showcase</li>
+                      <li>Simple Home</li>
+                      <li>Split Showcase</li>
+                      <li>Landing Page</li>
+                    </ul>
+                  </li>
+                </ul>
+
+                <ul>
+                  <li class="menu-li">
+                    <div class="li-info">
+                      PAGES
+                      <i
+                        class="fa-solid fa-caret-right"
+                        style="color: var(--text-color) !important"
+                      ></i>
+                    </div>
+
+                    <ul class="sub-menu">
+                      <li>About Us</li>
+                      <li>What We Do</li>
+                      <li>Our Team</li>
+                      <li>Meet The Crew</li>
+                      <li>Team Member</li>
+                      <li>Our Services</li>
+                      <li>Pricing Plans</li>
+                      <li>Payment</li>
+                      <li>Testimonials</li>
+                      <li>Gift Cards</li>
+                      <li>Terms & Conditions</li>
+                      <li>Contact Us</li>
+                      <li>Leave Us A Note</li>
+                      <li>FAQ</li>
+                      <li>Coming Soon</li>
+                    </ul>
+                  </li>
+                </ul>
+
+                <ul>
+                  <li class="menu-li">
+                    <div class="li-info">
+                      SHOP
+                      <i
+                        class="fa-solid fa-caret-right"
+                        style="color: var(--text-color) !important"
+                      ></i>
+                    </div>
+
+                    <ul class="sub-menu">
+                      <li>Shop Types</li>
+                      <li>Product Types</li>
+                      <li>Featured</li>
+                      <li>Layouts</li>
+                      <li>Two Columns Grid</li>
+                      <li>Three Columns Grid</li>
+                      <li>Four Columns Grid</li>
+                      <li>Four Columns Wide</li>
+                      <li>Five Columns Wide</li>
+                      <li>Six Columns Wide</li>
+                    </ul>
+                  </li>
+                </ul>
+
+                <ul>
+                  <li class="menu-li">
+                    <div class="li-info">
+                      ELEMENTS
+                      <i
+                        class="fa-solid fa-caret-right"
+                        style="color: var(--text-color) !important"
+                      ></i>
+                    </div>
+
+                    <ul class="sub-menu">
+                      <li>Shop Shortcodes</li>
+                      <li>Classic</li>
+                      <li>Infographic</li>
+                      <li>Presentation</li>
+                    </ul>
+                  </li>
+                </ul>
+
+                <ul>
+                  <li class="menu-li">
+                    <div class="li-info">CART</div>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -517,5 +629,58 @@ document.addEventListener("DOMContentLoaded", (_) => {
 
       window.location.reload();
     }
+
+    try {
+      if (e.target.closest("li").hasAttribute("class")) {
+        let allSubMenus = document.querySelectorAll(".mobile-menu .sub-menu");
+        let allLiInfoI = document.querySelectorAll(".mobile-menu .li-info i");
+        let allMenuLi = document.querySelectorAll(".mobile-menu .menu-li");
+
+        // closing all submenus first
+        for (let i of allSubMenus) {
+          i.style = "dispaly: none !important; max-height: 0px;";
+        }
+
+        // return arrow direction to normal
+        for (let i of allLiInfoI) {
+          i.style = "transform: rotate(0deg);";
+        }
+
+        // checking if current submenu contains "opened" class
+        if (e.target.closest("li").classList.contains("opened")) {
+          // closing all submenus first
+          for (let i of allSubMenus) {
+            i.style = "dispaly: none !important; max-height: 0px;";
+          }
+
+          // return arrow direction to normal
+          for (let i of allLiInfoI) {
+            i.style = "transform: rotate(0deg);";
+          }
+
+          // removing class "opened" from current submenu
+          e.target.closest("li").classList.remove("opened");
+        } else {
+          let subMenuArrow = e.target.closest("li").querySelector("i");
+          let subMenu = e.target.closest("li").querySelector(".sub-menu");
+
+          // showing the submenu items
+          subMenu.style = "display: flex !important; max-height: 450px";
+
+          // rotate arrow direction down
+          subMenuArrow.style =
+            "transform: rotate(90deg); color: var(--text-color);";
+
+          // removing class "opened" from all submenus
+          for (let i of allMenuLi) {
+            i.classList.remove("opened");
+          }
+
+          // then adding "opened" class to the current submenu
+          e.target.closest("li").classList.add("opened");
+        }
+      }
+    } catch (error) {}
+    console.log(e.target);
   });
 });

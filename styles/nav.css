@@ -442,9 +442,57 @@ nav {
   transition: 0.1s;
 }
 
-.search i:hover,
-.menu i:hover {
+.search i:hover {
   color: rgba(0, 0, 0, 0.482) !important;
+}
+
+.mobile-menu {
+  padding: 60px;
+  display: none;
+  flex-direction: column;
+  gap: 20px;
+  height: 700px;
+  overflow: hidden;
+}
+
+.mobile-menu > ul {
+  color: var(--text-color);
+  font-size: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.mobile-menu ul {
+  list-style: none;
+}
+
+.mobile-menu > ul:first-child {
+  color: white;
+}
+
+.mobile-menu > ul > li {
+  gap: 20px;
+}
+
+.mobile-menu > ul > li,
+.sub-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.sub-menu {
+  gap: 10px;
+  display: none;
+  max-height: 0px;
+  overflow: hidden;
+}
+
+.sub-menu li {
+  font-size: 14px;
+  color: var(--text-color);
 }
 
 .search-container {
@@ -482,6 +530,12 @@ nav {
 
 .menu {
   transition: 0.3s;
+  display: flex;
+  gap: 15px;
+}
+
+.menu > p {
+  display: none;
 }
 
 .menu .displayed-menu {

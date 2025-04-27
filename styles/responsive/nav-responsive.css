@@ -1,0 +1,44 @@
+@media (max-width: 1340px) {
+  .parent {
+    width: 1000px;
+  }
+}
+
+@media (max-width: 1050px) {
+  .parent {
+    width: 768px;
+    padding: 0 15px;
+  }
+
+  .left-side > ul {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .right-side > div:not(:last-child),
+  .parent .left-side {
+    display: none;
+  }
+
+  .menu > p {
+    display: block;
+  }
+
+  .mobile-menu {
+    display: flex;
+  }
+
+  .displayed-menu {
+    width: 340px !important;
+    justify-content: flex-start !important;
+  }
+
+  .displayed-menu > div:not(:last-child),
+  .displayed-menu .menu-info .menu-description {
+    display: none;
+  }
+
+  .displayed-menu .menu-info {
+    display: block !important;
+  }
+}
