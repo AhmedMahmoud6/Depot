@@ -479,7 +479,7 @@ document.addEventListener("DOMContentLoaded", (_) => {
 
     // display menu
     if (menuDiv.contains(e.target)) {
-      displayedMenu.style = "right: 0%; visibility: visible;";
+      displayedMenu.style = "right: 0%;";
     }
 
     // close menu btn

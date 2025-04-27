@@ -496,7 +496,6 @@ nav {
   flex-direction: column;
   justify-content: space-between;
   transition: 0.5s ease-in-out;
-  /* visibility: hidden; */
 }
 
 .menu-description {
