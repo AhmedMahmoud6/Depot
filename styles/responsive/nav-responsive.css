@@ -47,7 +47,7 @@
   }
 }
 
-@media (max-width: 830px) {
+@media (max-width: 890px) {
   .cart {
     flex-direction: column;
     justify-content: center;
