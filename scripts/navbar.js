@@ -515,7 +515,7 @@ function loadNavbar() {
 
                 <ul>
                   <li class="menu-li">
-                    <div class="li-info">CART</div>
+                    <div class="li-info"><a href="checkout.html">CART</a></div>
                   </li>
                 </ul>
               </div>

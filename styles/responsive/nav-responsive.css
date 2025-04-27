@@ -41,4 +41,14 @@
   .displayed-menu .menu-info {
     display: block !important;
   }
+
+  .cart {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 455px) {
+  .cart span {
+    display: none;
+  }
 }
