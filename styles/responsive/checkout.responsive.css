@@ -2,6 +2,33 @@
   .order-details {
     padding: 100px 70px;
   }
+
+  .empty-cart {
+    padding: 0px 100px;
+  }
+
+  .empty-cart a {
+    margin-top: 40px;
+  }
+
+  .empty-msg {
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .empty-cart {
+    padding: 0px 50px;
+  }
+
+  .empty-msg,
+  .empty-cart p {
+    font-size: 14px;
+  }
+
+  .empty-msg {
+    width: 100%;
+  }
 }
 
 @media (max-width: 700px) {
@@ -23,5 +50,23 @@
 
   .congrats-msg h1 {
     text-align: center;
+  }
+}
+
+@media (max-width: 530px) {
+  .empty-cart {
+    padding: 0px 10px;
+  }
+
+  .empty-cart,
+  .empty-cart p {
+    text-align: center;
+  }
+  .empty-cart p {
+    font-size: 12px;
+  }
+
+  .empty-msg {
+    font-size: 13px;
   }
 }
