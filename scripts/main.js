@@ -10,7 +10,7 @@ window.addEventListener("load", (_) => {
     loop: true,
     allowTouchMove: false,
     autoplay: {
-      delay: 300000,
+      delay: 3000,
     },
     speed: 800,
 
