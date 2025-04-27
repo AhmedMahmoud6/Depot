@@ -65,10 +65,6 @@
     display: none;
   }
 
-  .cart .products {
-    left: -100px;
-  }
-
   .parent {
     gap: 0px;
     padding: 0 15px;
