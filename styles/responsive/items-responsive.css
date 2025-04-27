@@ -1,0 +1,42 @@
+@media (max-width: 1350px) {
+  .items-container {
+    padding: 100px 170px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .items-container {
+    padding: 100px 60px;
+  }
+}
+
+@media (max-width: 800px) {
+  .product {
+    width: calc(100% / 3);
+  }
+
+  .categories .filter {
+    display: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .product {
+    width: calc(100% / 2);
+  }
+
+  .items-type ul {
+    flex-direction: column;
+  }
+
+  .categories {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 485px) {
+  .product {
+    width: calc(100% / 1);
+  }
+}

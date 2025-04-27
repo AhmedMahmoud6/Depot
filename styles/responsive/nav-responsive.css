@@ -7,7 +7,7 @@
 @media (max-width: 1050px) {
   .parent {
     width: 768px;
-    padding: 0 15px;
+    padding: 0 30px;
   }
 
   .left-side > ul {
@@ -47,6 +47,12 @@
   }
 }
 
+@media (max-width: 485px) {
+  .parent {
+    gap: 50px;
+  }
+}
+
 @media (max-width: 455px) {
   .cart > span {
     display: none;
@@ -58,5 +64,6 @@
 
   .parent {
     gap: 0px;
+    padding: 0 15px;
   }
 }
