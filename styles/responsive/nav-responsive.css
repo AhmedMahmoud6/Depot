@@ -47,6 +47,13 @@
   }
 }
 
+@media (max-width: 800px) {
+  .cart {
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
 @media (max-width: 485px) {
   .parent {
     gap: 50px;
