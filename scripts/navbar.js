@@ -681,6 +681,5 @@ document.addEventListener("DOMContentLoaded", (_) => {
         }
       }
     } catch (error) {}
-    console.log(e.target);
   });
 });

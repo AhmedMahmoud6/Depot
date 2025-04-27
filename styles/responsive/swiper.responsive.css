@@ -1,0 +1,32 @@
+@media (max-width: 1750px) {
+  .swiper {
+    width: 1300px;
+  }
+}
+
+@media (max-width: 1350px) {
+  .swiper {
+    width: 900px;
+  }
+
+  .swiper-slide {
+    flex-direction: column-reverse;
+    align-items: center;
+    padding: 30px 130px;
+    text-align: center;
+  }
+
+  .slide-text-container {
+    margin-top: 40px;
+  }
+
+  .slide-image-container {
+    height: 82%;
+  }
+}
+
+@media (max-width: 950px) {
+  .swiper {
+    width: 100vw;
+  }
+}
